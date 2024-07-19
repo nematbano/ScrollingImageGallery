@@ -1,5 +1,6 @@
 package com.example.scrollingimagegallery.di
 
+import com.example.scrollingimagegallery.network.PicSumService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +20,11 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    }
+
+    @Provides
+    @Singleton
+    fun providePicSumService(retrofit: Retrofit): PicSumService {
+        return retrofit.create(PicSumService::class.java)
     }
 }

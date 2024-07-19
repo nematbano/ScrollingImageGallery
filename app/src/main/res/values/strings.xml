@@ -2,4 +2,6 @@
     <string name="app_name">ScrollingImageGallery</string>
     <string name="gallery_image">Gallery Image</string>
     <string name="toolbar_title">Scrolling Image Gallery</string>
+    <string name="error_title">Error</string>
+    <string name="error_message">There is an error loading images. Please try again later</string>
 </resources>
