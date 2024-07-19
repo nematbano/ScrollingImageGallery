@@ -1,4 +1,4 @@
-package com.example.scrollingimagegallery
+package com.example.scrollingimagegallery.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.scrollingimagegallery.R
 
 class ImageGalleryAdapter : ListAdapter<ImageGalleryData, ImageGalleryAdapter.ImageViewHolder>(
     DiffCallback()
