@@ -1,5 +1,7 @@
 package com.example.scrollingimagegallery.recyclerview
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.scrollingimagegallery.R
 
 class ImageGalleryAdapter : ListAdapter<ImageGalleryData, ImageGalleryAdapter.ImageViewHolder>(
@@ -36,6 +39,8 @@ class ImageGalleryAdapter : ListAdapter<ImageGalleryData, ImageGalleryAdapter.Im
         Glide.with(holder.itemView.context)
             .load(item.download_url)
             .placeholder(placeholder)
+            .error(R.drawable.ic_error)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.imageView)
 
     }
