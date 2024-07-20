@@ -47,6 +47,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.3.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
     annotationProcessor("com.github.bumptech.glide:compiler:4.0.0")
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
@@ -54,6 +56,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")// For Kotlin
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
