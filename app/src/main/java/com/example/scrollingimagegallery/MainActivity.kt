@@ -1,6 +1,7 @@
 package com.example.scrollingimagegallery
 
 import android.os.Bundle
+import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -62,7 +63,11 @@ class MainActivity : AppCompatActivity() {
 
                         is UiState.Error -> {
                             swipeRefreshLayout.isRefreshing = false
-                            showErrorDialog()
+                            if (adapter.currentList.isEmpty()) {
+                                showErrorDialog()
+                            } else {
+                                Toast.makeText(this@MainActivity, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

@@ -25,20 +25,20 @@ class MainViewModel @Inject constructor(private val repository: ImageRepository)
 
     fun loadImages() {
         viewModelScope.launch {
-            val currentData = (_uiState.value as? UiState.Success)?.list ?: emptyList()
             _uiState.value = UiState.Loading
-            try {
-                repository.getImages(currentPage, pageSize)
-                    .collect { newImages ->
-                        _uiState.value = UiState.Success(currentData + newImages)
-                        currentPage++
-                    }
-
-            } catch (e: Exception) {
+            val result = repository.getImages(currentPage, pageSize)
+            if (result.isSuccess) {
+                val images = result.getOrNull().orEmpty()
+                _uiState.value = UiState.Success( images)
+                if (images.isNotEmpty()) {
+                    currentPage++
+                }
+            } else {
                 _uiState.value = UiState.Error
             }
         }
     }
+
 }
 
 sealed class UiState {

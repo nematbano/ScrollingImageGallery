@@ -1,7 +1,5 @@
 package com.example.scrollingimagegallery.recyclerview
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
