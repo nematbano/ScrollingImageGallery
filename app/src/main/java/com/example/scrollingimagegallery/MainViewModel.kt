@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(private val repository: ImageRepository)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     private var currentPage = 1
-    private val pageSize = 20
+    private var pageSize = 20
 
     init {
         loadImages()
@@ -37,6 +37,15 @@ class MainViewModel @Inject constructor(private val repository: ImageRepository)
                 _uiState.value = UiState.Error
             }
         }
+    }
+
+    fun setImagesPerPage(count: Int) {
+        pageSize = count
+        currentPage = 1
+        viewModelScope.launch {
+            repository.reset()
+        }
+        loadImages()
     }
 
 }

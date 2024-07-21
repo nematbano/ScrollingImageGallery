@@ -1,20 +1,24 @@
 package com.example.scrollingimagegallery
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
-
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.scrollingimagegallery.recyclerview.ImageGalleryAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -23,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ImageGalleryAdapter
     private lateinit var toolbar: Toolbar
+    private lateinit var imageCountEditText: EditText
+
     private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +38,18 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.toolbar_title)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         recyclerView = findViewById(R.id.recyclerView)
-
+        imageCountEditText = findViewById(R.id.imageCountEditText)
+        val applyButton: Button = findViewById(R.id.applyButton)
+        applyButton.setOnClickListener {
+            it.hideKeyboard()
+            val countText = imageCountEditText.text.toString()
+            val count = countText.toIntOrNull()
+            if (count != null && count > 0) {
+                viewModel.setImagesPerPage(count)
+            } else {
+                Toast.makeText(this, "Please enter a valid number", Toast.LENGTH_SHORT).show()
+            }
+        }
         adapter = ImageGalleryAdapter()
 
         recyclerView.layoutManager = GridLayoutManager(this, 2)
@@ -83,6 +100,11 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

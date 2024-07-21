@@ -4,4 +4,6 @@
     <string name="toolbar_title">Scrolling Image Gallery</string>
     <string name="error_title">Error</string>
     <string name="error_message">There is an error loading images. Please try again later</string>
+    <string name="images_per_page">Images per page</string>
+    <string name="apply">Apply</string>
 </resources>

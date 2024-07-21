@@ -38,4 +38,11 @@ private val allImages = mutableListOf<ImageEntity>()
             }
         }
     }
+
+    suspend fun reset() {
+        withContext(Dispatchers.IO) {
+            imageDao.clearAll()
+            allImages.clear()
+        }
+    }
 }
