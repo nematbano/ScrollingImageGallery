@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.scrollingimagegallery.recyclerview.ImageGalleryAdapter
+import com.example.scrollingimagegallery.utils.ImageHandler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ImageGalleryAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var imageCountEditText: EditText
+
+    @Inject
+    lateinit var imageHandler: ImageHandler
 
     private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a valid number", Toast.LENGTH_SHORT).show()
             }
         }
-        adapter = ImageGalleryAdapter()
+        adapter = ImageGalleryAdapter(imageHandler)
 
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
